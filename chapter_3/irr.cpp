@@ -3,7 +3,7 @@
 
 int main()
 {
-    std::vector<double> cflows = {-100, 10, 110}, times = {0, 1, 2};
+    std::vector<double> cflows{-100., 10., 110.}, times{0., 1., 2.};
     double r = 0.05;
 
     std::cout << " present value, 5 percent discretely compounded interest = ";
