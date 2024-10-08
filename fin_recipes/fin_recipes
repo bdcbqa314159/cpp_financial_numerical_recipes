@@ -1,3 +1,5 @@
 #pragma once
 
-#include "./includes/cash_flow_pv_discrete.hpp"
+#include "./includes/date.hpp"
+#include "./includes/pv_calculations.hpp"
+#include "./includes/irr_calculations.hpp"
