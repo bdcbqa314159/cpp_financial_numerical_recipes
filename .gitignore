@@ -146,3 +146,5 @@ ipch/
 
 # personal stuff
 docs/
+.cache/
+**/.DS_Store
