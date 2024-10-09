@@ -1,6 +1,6 @@
 #include "irr_calculations.hpp"
 
-double cash_flow_irr_discrete(std::vector<double> &cflow_times, std::vector<double> &cflow_amounts)
+double cash_flow_irr_discrete(const v_double &cflow_times, const v_double &cflow_amounts)
 {
     assert(cflow_times.size() == cflow_amounts.size());
 
@@ -50,7 +50,7 @@ double cash_flow_irr_discrete(std::vector<double> &cflow_times, std::vector<doub
     return ERROR;
 }
 
-bool cash_flow_unique_irr(const std::vector<double> &cflow_times, const std::vector<double> &cflow_amounts)
+bool cash_flow_unique_irr(const v_double &cflow_times, const v_double &cflow_amounts)
 {
     assert(cflow_times.size() == cflow_amounts.size());
     int sign_changes{};
