@@ -6,6 +6,7 @@ set(sources
     src/pv_calculations.cpp
     src/irr_calculations.cpp
     src/bond_pricing.cpp
+    src/term_ir.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})

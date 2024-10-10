@@ -4,3 +4,4 @@
 #include "./includes/pv_calculations.hpp"
 #include "./includes/irr_calculations.hpp"
 #include "./includes/bond_pricing.hpp"
+#include "./includes/term_ir.hpp"
