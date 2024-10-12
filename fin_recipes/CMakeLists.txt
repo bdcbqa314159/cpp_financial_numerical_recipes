@@ -7,6 +7,9 @@ set(sources
     # src/irr_calculations.cpp
     src/bond_pricing.cpp
     src/term_ir.cpp
+    src/term_structure.cpp
+    src/term_structure_flat.cpp
+    src/term_structure_interpolated.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})

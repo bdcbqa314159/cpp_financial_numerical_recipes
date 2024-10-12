@@ -5,3 +5,6 @@
 // #include "./includes/irr_calculations.hpp"
 #include "./includes/bond_pricing.hpp"
 #include "./includes/term_ir.hpp"
+#include "./includes/term_structure.hpp"
+#include "./includes/term_structure_flat.hpp"
+#include "./includes/term_structure_interpolated.hpp"
