@@ -9,3 +9,4 @@
 #include "./includes/term_structure_flat.hpp"
 #include "./includes/term_structure_interpolated.hpp"
 #include "./includes/futures.hpp"
+#include "./includes/binomial_option_pricing.hpp"
