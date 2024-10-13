@@ -10,6 +10,7 @@ set(sources
     src/term_structure.cpp
     src/term_structure_flat.cpp
     src/term_structure_interpolated.cpp
+    src/futures.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})

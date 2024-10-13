@@ -8,3 +8,4 @@
 #include "./includes/term_structure.hpp"
 #include "./includes/term_structure_flat.hpp"
 #include "./includes/term_structure_interpolated.hpp"
+#include "./includes/futures.hpp"
