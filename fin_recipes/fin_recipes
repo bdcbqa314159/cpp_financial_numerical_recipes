@@ -12,3 +12,4 @@
 #include "./includes/binomial_option_pricing.hpp"
 #include "./includes/option_pricing_bs.hpp"
 #include "./includes/norm_dist.hpp"
+#include "./includes/warrants.hpp"

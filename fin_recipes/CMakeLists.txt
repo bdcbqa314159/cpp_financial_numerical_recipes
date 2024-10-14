@@ -14,6 +14,7 @@ set(sources
     src/binomial_option_pricing.cpp
     src/option_pricing_bs.cpp
     src/norm_dist.cpp
+    src/warrants.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
