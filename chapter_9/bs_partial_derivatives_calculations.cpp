@@ -1,7 +1,8 @@
-#include <iostream>
 #include "fin_recipes"
+#include <iostream>
 
-int main(){
+int main()
+{
 
     std::cout << " Black Scholes call partial derivatives " << "\n";
     double S = 50;
