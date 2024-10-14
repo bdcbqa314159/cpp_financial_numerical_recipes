@@ -12,6 +12,8 @@ set(sources
     src/term_structure_interpolated.cpp
     src/futures.cpp
     src/binomial_option_pricing.cpp
+    src/option_pricing_bs.cpp
+    src/norm_dist.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
