@@ -1,9 +1,10 @@
-#include <iostream>
 #include "fin_recipes"
+#include <iostream>
 
-int main(){
+int main()
+{
 
-    v_double times = {1,2};
+    v_double times = {1, 2};
 
     v_double cashflows = {10, 110};
 

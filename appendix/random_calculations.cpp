@@ -1,7 +1,8 @@
-#include <iostream>
 #include "fin_recipes"
+#include <iostream>
 
-int main(){
+int main()
+{
 
     std::cout << " 5 random uniform numbers between 0 and 1: " << "\n";
     std::cout << " ";

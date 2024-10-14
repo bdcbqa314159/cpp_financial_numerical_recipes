@@ -4,13 +4,12 @@
 int main(void)
 {
     double a_[] = {
-                    2,1,
-                    1,2
-                };
+        2, 1,
+        1, 2};
 
-    double b_[] = {2,3};
+    double b_[] = {2, 3};
 
-    double c_[] = {0,0};
+    double c_[] = {0, 0};
 
     gsl_matrix_view A = gsl_matrix_view_array(a_, 2, 2);
     gsl_vector_view b = gsl_vector_view_array(b_, 2);

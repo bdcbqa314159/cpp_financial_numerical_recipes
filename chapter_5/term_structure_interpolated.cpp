@@ -1,7 +1,8 @@
-#include <iostream>
 #include "fin_recipes"
+#include <iostream>
 
-int main(){
+int main()
+{
 
     v_double times = {0.1, 1, 5};
     v_double spotrates = {0.05, 0.07, 0.08};
@@ -14,7 +15,7 @@ int main(){
     std::cout << "spot rate t = " << t1 << ":" << ts.r(t1) << "\n";
     std::cout << "spot rate t = " << t2 << ":" << ts.r(t2) << "\n";
     std::cout << "forward rate from t1= " << t1 << " to t2= " << t2 << ":"
-         << ts.f(t1, t2) << "\n";
+              << ts.f(t1, t2) << "\n";
 
     return 0;
 }

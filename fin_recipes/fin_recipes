@@ -13,3 +13,4 @@
 #include "./includes/option_pricing_bs.hpp"
 #include "./includes/norm_dist.hpp"
 #include "./includes/warrants.hpp"
+#include "./includes/extending_bs.hpp"

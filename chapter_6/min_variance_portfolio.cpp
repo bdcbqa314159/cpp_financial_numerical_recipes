@@ -38,11 +38,11 @@ int main()
     gsl_blas_ddot(&e.vector, V_inv_e, &b);
     gsl_blas_ddot(&ones.vector, V_inv_ones, &c);
 
-    double det_A = b*c - a*a;
+    double det_A = b * c - a * a;
 
-    std::cout<<"a = "<<a<<"\n";
-    std::cout<<"b = "<<b<<"\n";
-    std::cout<<"c = "<<c<<"\n";
+    std::cout << "a = " << a << "\n";
+    std::cout << "b = " << b << "\n";
+    std::cout << "c = " << c << "\n";
 
     std::cout << "det_A = " << det_A << "\n";
 
@@ -54,7 +54,6 @@ int main()
 
     gsl_vector *w = gsl_vector_alloc(3);
 
-
     gsl_vector_add(temp_1, &ones.vector);
     gsl_vector_scale(temp_1, b);
 
@@ -64,7 +63,7 @@ int main()
     gsl_vector_sub(temp_1, temp_2);
 
     gsl_blas_dgemv(CblasTrans, 1.0, V_inv, temp_1, 0.0, g);
-    gsl_vector_scale(g, 1/det_A);
+    gsl_vector_scale(g, 1 / det_A);
 
     gsl_vector_set_all(temp_1, 0);
     gsl_vector_set_all(temp_2, 0);
@@ -77,7 +76,7 @@ int main()
 
     gsl_vector_sub(temp_1, temp_2);
     gsl_blas_dgemv(CblasTrans, 1.0, V_inv, temp_1, 0.0, h);
-    gsl_vector_scale(h, 1/det_A);
+    gsl_vector_scale(h, 1 / det_A);
 
     gsl_vector_set_all(temp_1, 0);
     gsl_vector_set_all(temp_2, 0);
