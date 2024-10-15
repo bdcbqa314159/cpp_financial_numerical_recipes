@@ -17,7 +17,9 @@ set(sources
     src/warrants.cpp
     src/extending_bs.cpp
     src/option_pricing_binomial_approx.cpp
+    src/finite_differences.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
 target_include_directories(${PROJECT_NAME} PUBLIC ${includes})
+target_link_libraries(${PROJECT_NAME} PUBLIC GSL::gsl GSL::gslcblas)

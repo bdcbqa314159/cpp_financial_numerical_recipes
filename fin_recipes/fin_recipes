@@ -14,3 +14,4 @@
 #include "./includes/term_structure_flat.hpp"
 #include "./includes/term_structure_interpolated.hpp"
 #include "./includes/warrants.hpp"
+#include "./includes/finite_differences.hpp"
