@@ -18,6 +18,7 @@ set(sources
     src/extending_bs.cpp
     src/option_pricing_binomial_approx.cpp
     src/finite_differences.cpp
+    src/option_pricing_simulation.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})

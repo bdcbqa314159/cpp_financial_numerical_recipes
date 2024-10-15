@@ -15,3 +15,4 @@
 #include "./includes/term_structure_interpolated.hpp"
 #include "./includes/warrants.hpp"
 #include "./includes/finite_differences.hpp"
+#include "./includes/option_pricing_simulation.hpp"
