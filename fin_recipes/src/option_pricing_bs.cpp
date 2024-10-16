@@ -11,10 +11,26 @@ double option_price_call_black_scholes(const double& S, const double& K, const d
     return S*N(d1) - K*std::exp(-r*time)*N(d2);
 }
 
-double option_price_delta_call_black_scholes(const double& S, const double& K, const double& r, const double& sigma, const double& time){
+double option_price_put_black_scholes(const double &S, const double &K, const double &r, const double &sigma, const double &time){
+
+    double time_sqrt = std::sqrt(time);
+    double d1 = (std::log(S / K) + r * time) / (sigma * time_sqrt) + 0.5 * sigma * time_sqrt;
+    double d2 = d1 - sigma * time_sqrt;
+
+    return -S * N(-d1) + K * std::exp(-r * time) * N(-d2);
+}
+
+
+double option_price_delta_call_black_scholes(const double &S, const double &K, const double &r, const double &sigma, const double &time)
+{
     double time_sqrt = std::sqrt(time);
     double d1 = (std::log(S/K) + r*time) / (sigma*time_sqrt) + 0.5*sigma*time_sqrt;
     return N(d1);
+}
+
+double option_price_delta_put_black_scholes(const double &S, const double &K, const double &r, const double &sigma, const double &time)
+{
+    return option_price_delta_call_black_scholes(S,K,r,sigma,time) -1;
 }
 
 void option_price_partials_call_black_scholes(const double& S, const double& K, const double& r, const double& sigma, const double& time, double& delta, double& gamma, double& theta, double& vega, double& rho){
