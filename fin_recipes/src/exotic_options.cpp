@@ -1,7 +1,10 @@
 #include "exotic_options.hpp"
+#include "option_pricing_bs.hpp"
 #include "norm_dist.hpp"
+#include "option_pricing_simulation.hpp"
 #include <algorithm>
 #include <vector>
+#include <numeric>
 
 double option_price_put_bermudan_binomial(c_double& S, c_double& K, c_double& r, c_double& q, c_double& sigma, c_double& time, c_v_double& potential_exercise_times, const size_t& steps){
     double delta_t = time/steps;
@@ -55,4 +58,83 @@ double option_price_asian_geometric_average_price_call(c_double &S, c_double &K,
     double d2 = d1-adj_sigma*time_sqrt;
     double call_price = S*std::exp(-adj_div_yield*time)*N(d1) - K*std::exp(-r*time)*N(d2);
     return call_price;
+}
+
+double option_price_european_lookback_call(c_double& S, c_double& Smin, c_double& r, c_double& q, c_double& sigma, c_double& time){
+
+    if (r == q) return 0;
+    double sigma_square = sigma*sigma;
+    double time_sqrt = std::sqrt(time);
+    double a1 = (std::log(S/Smin) + (r-q+sigma_square*0.5)*time)/(sigma*time_sqrt);
+    double a2 = a1-sigma*time_sqrt;
+    double a3 = (std::log(S / Smin) + (-r + q + sigma_square * 0.5) * time) / (sigma * time_sqrt);
+    double Y1 = 2.*(r - q - sigma_square*0.5)*std::log(S/Smin)/sigma_square;
+    return S*std::exp(-q*time)*N(a1) - S*std::exp(-q*time)*(sigma_square/(2.*(r-q)))*N(-a1) - Smin*std::exp(-r*time)*(N(a2) - sigma_square/(2.*(r-q))*std::exp(Y1)*N(-a3));
+}
+
+inline v_double simulate_lognormally_distributed_sequence(c_double& S, c_double& r, c_double& sigma, c_double& time, const size_t no_steps){
+    v_double prices(no_steps);
+    double delta_t = time/no_steps;
+    double delta_t_sqrt = std::sqrt(delta_t);
+    double sigma_square = sigma*sigma;
+    double R = (r-0.5*sigma_square)*delta_t;
+    double SD = sigma*delta_t_sqrt;
+    double S_t = S;
+    for (size_t i = 0; i<no_steps; ++i){
+        S_t = S_t*std::exp(R+SD*random_normal());
+        prices[i] = S_t;
+    }
+
+    return prices;
+}
+
+double derivative_price_simulate_european_option_generic(c_double& S, c_double& K, c_double& r, c_double& sigma, c_double& time, double payoff(c_v_double& prices, c_double& X), const size_t &no_steps, const size_t &no_sims){
+    double sum_payoffs = 0;
+    for (size_t n = 0; n<no_sims; ++n){
+        v_double prices = simulate_lognormally_distributed_sequence(S, r, sigma, time, no_steps);
+        sum_payoffs += payoff(prices, K);
+    }
+    return std::exp(-r * time) * (sum_payoffs / no_sims);
+}
+
+double payoff_arithmetic_average_call(c_v_double& prices, c_double& K){
+    double sum = std::accumulate(prices.begin(), prices.end(), 0.);
+    double avg = sum/prices.size();
+    return std::max(0., avg - K);
+}
+
+double payoff_geometric_average_call(c_v_double& prices, c_double& K){
+    double logsum = std::log(prices[0]);
+    for (size_t i = 1; i<prices.size(); ++i)
+        logsum+=std::log(prices[i]);
+    double avg = std::exp(logsum/prices.size());
+    return std::max(0., avg-K);
+}
+
+double payoff_lookback_call(c_v_double& prices, c_double& unused_var){
+    double m = *std::min_element(prices.begin(), prices.end());
+    return prices.back() - m;
+}
+
+double payoff_lookback_put(c_v_double &prices, c_double &unused_var)
+{
+    double m = *std::max_element(prices.begin(), prices.end());
+    return m - prices.back();
+}
+
+double derivative_price_simulate_european_option_generic_with_control_variate(c_double& S, c_double& K, c_double& r, c_double& sigma, c_double& time, double payoff(c_v_double& prices, c_double& X), const size_t& no_steps, const size_t& no_sims){
+    double c_bs = option_price_call_black_scholes(S,S,r,sigma, time);
+    double sum_payoffs{}, sum_payoffs_bs{};
+
+    for (size_t n = 0; n<no_sims; ++n){
+        v_double prices = simulate_lognormally_distributed_sequence(S,r,sigma, time, no_steps);
+        double S1 = prices.back();
+        sum_payoffs += payoff(prices, K);
+        sum_payoffs_bs += pay_off_call(S1, S);
+    }
+
+    double c_sim = std::exp(-r*time)*(sum_payoffs/no_sims);
+    double c_sim_bs = std::exp(-r*time)*(sum_payoffs_bs/no_sims);
+    c_sim+=(c_bs - c_sim_bs);
+    return c_sim;
 }
