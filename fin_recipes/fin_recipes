@@ -8,6 +8,7 @@
 #include "./includes/extending_bs.hpp"
 #include "./includes/finite_differences.hpp"
 #include "./includes/futures.hpp"
+#include "./includes/generic_binomial.hpp"
 #include "./includes/norm_dist.hpp"
 #include "./includes/option_pricing_binomial_approx.hpp"
 #include "./includes/option_pricing_bs.hpp"
@@ -18,3 +19,4 @@
 #include "./includes/term_structure_flat.hpp"
 #include "./includes/term_structure_interpolated.hpp"
 #include "./includes/warrants.hpp"
+#include "./includes/payoffs.hpp"

@@ -1,6 +1,7 @@
 #include "option_pricing_simulation.hpp"
 #include "option_pricing_bs.hpp"
 #include "norm_dist.hpp"
+#include "payoffs.hpp"
 #include <cmath>
 #include <algorithm>
 
@@ -54,15 +55,6 @@ double option_price_delta_call_european_simulated(c_double &S, c_double &K, c_do
     return (c_q - c)/q;
 }
 
-double pay_off_call(c_double& S, c_double&K){
-    return std::max(S-K, 0.);
-}
-
-double pay_off_put(c_double &S, c_double &K)
-{
-    return std::max(K-S, 0.);
-}
-
 double derivative_price_simulate_european_generic(c_double &S, c_double &K, c_double &r, c_double &sigma, c_double &time, double pay_off(c_double &S, c_double &K), const size_t &no_sims)
 {
     double sum_payoffs{};
@@ -114,15 +106,4 @@ double derivative_price_simulate_european_generic_with_antithetic_variate(c_doub
     }
 
     return std::exp(-r*time)*(sum_payoffs/(2*no_sims));
-}
-
-double pay_off_cash_or_nothing(c_double& S, c_double& K){
-
-    return S>=K ? 1:0;
-}
-
-double pay_off_asset_or_nothing(c_double &S, c_double &K)
-{
-
-    return S >= K ? S : 0;
 }

@@ -2,6 +2,7 @@
 #include "option_pricing_bs.hpp"
 #include "norm_dist.hpp"
 #include "option_pricing_simulation.hpp"
+#include "payoffs.hpp"
 #include <algorithm>
 #include <vector>
 #include <numeric>
@@ -97,30 +98,6 @@ double derivative_price_simulate_european_option_generic(c_double& S, c_double& 
     return std::exp(-r * time) * (sum_payoffs / no_sims);
 }
 
-double payoff_arithmetic_average_call(c_v_double& prices, c_double& K){
-    double sum = std::accumulate(prices.begin(), prices.end(), 0.);
-    double avg = sum/prices.size();
-    return std::max(0., avg - K);
-}
-
-double payoff_geometric_average_call(c_v_double& prices, c_double& K){
-    double logsum = std::log(prices[0]);
-    for (size_t i = 1; i<prices.size(); ++i)
-        logsum+=std::log(prices[i]);
-    double avg = std::exp(logsum/prices.size());
-    return std::max(0., avg-K);
-}
-
-double payoff_lookback_call(c_v_double& prices, c_double& unused_var){
-    double m = *std::min_element(prices.begin(), prices.end());
-    return prices.back() - m;
-}
-
-double payoff_lookback_put(c_v_double &prices, c_double &unused_var)
-{
-    double m = *std::max_element(prices.begin(), prices.end());
-    return m - prices.back();
-}
 
 double derivative_price_simulate_european_option_generic_with_control_variate(c_double& S, c_double& K, c_double& r, c_double& sigma, c_double& time, double payoff(c_v_double& prices, c_double& X), const size_t& no_steps, const size_t& no_sims){
     double c_bs = option_price_call_black_scholes(S,S,r,sigma, time);
