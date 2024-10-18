@@ -24,6 +24,7 @@ set(sources
     src/generic_binomial.cpp
     src/payoffs.cpp
     src/trinomial_trees.cpp
+    src/bs_alternatives.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})

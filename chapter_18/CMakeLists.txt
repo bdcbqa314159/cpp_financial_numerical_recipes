@@ -1,4 +1,4 @@
-project(chapter_17)
+project(chapter_18)
 
 set(includes ./ ../fin_recipes/)
 set(exe_1 trinomial_tree_american_put)

@@ -21,3 +21,4 @@
 #include "./includes/term_structure_interpolated.hpp"
 #include "./includes/trinomial_trees.hpp"
 #include "./includes/warrants.hpp"
+#include "./includes/bs_alternatives.hpp"
