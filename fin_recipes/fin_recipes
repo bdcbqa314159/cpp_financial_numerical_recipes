@@ -23,3 +23,4 @@
 #include "./includes/warrants.hpp"
 #include "./includes/bs_alternatives.hpp"
 #include "./includes/bond_options.hpp"
+#include "./includes/credit_risk.hpp"
