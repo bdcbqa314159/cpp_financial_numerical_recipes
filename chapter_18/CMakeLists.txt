@@ -1,7 +1,7 @@
 project(chapter_17)
 
 set(includes ./ ../fin_recipes/)
-set(exe_1 generic_binomial_calculations)
+set(exe_1 trinomial_tree_american_put)
 
 add_executable(${exe_1} ${exe_1}.cpp)
 target_include_directories(${exe_1} PUBLIC ${includes})

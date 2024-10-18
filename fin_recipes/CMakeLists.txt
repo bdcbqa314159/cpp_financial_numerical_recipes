@@ -23,6 +23,7 @@ set(sources
     src/exotic_options.cpp
     src/generic_binomial.cpp
     src/payoffs.cpp
+    src/trinomial_trees.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
