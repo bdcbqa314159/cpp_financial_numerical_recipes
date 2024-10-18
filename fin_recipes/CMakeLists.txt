@@ -25,6 +25,7 @@ set(sources
     src/payoffs.cpp
     src/trinomial_trees.cpp
     src/bs_alternatives.cpp
+    src/bond_options.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
