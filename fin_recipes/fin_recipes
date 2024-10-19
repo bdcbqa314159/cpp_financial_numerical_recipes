@@ -25,3 +25,4 @@
 #include "./includes/bond_options.hpp"
 #include "./includes/credit_risk.hpp"
 #include "./includes/term_structure_models.hpp"
+#include "./includes/binomial_term_structure_models.hpp"
