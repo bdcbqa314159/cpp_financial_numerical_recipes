@@ -24,3 +24,4 @@
 #include "./includes/bs_alternatives.hpp"
 #include "./includes/bond_options.hpp"
 #include "./includes/credit_risk.hpp"
+#include "./includes/term_structure_models.hpp"

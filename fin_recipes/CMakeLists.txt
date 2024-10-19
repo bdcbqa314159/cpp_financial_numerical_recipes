@@ -27,6 +27,7 @@ set(sources
     src/bs_alternatives.cpp
     src/bond_options.cpp
     src/credit_risk.cpp
+    src/term_structure_models.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
