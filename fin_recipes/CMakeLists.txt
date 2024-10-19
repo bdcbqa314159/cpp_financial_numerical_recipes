@@ -29,6 +29,7 @@ set(sources
     src/credit_risk.cpp
     src/term_structure_models.cpp
     src/binomial_term_structure_models.cpp
+    src/ir_trees.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
