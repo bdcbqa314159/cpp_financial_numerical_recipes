@@ -39,3 +39,26 @@ class term_structure_class_cubic_spline: public term_structure_class{
         term_structure_class_cubic_spline(c_double& b, c_double& c, c_double& d, c_v_double& f, c_v_double& knots);
         virtual double d(c_double& t) const;
 };
+
+double term_structure_discount_factor_cir(c_double &t, c_double &r, c_double &kappa, c_double &lambda, c_double &theta, c_double &sigma);
+
+class term_structure_class_cir: public term_structure_class{
+
+    private:
+        double r_{}, kappa_{}, lambda_{}, theta_{}, sigma_{};
+    public:
+        term_structure_class_cir() = default;
+        term_structure_class_cir(c_double& r, c_double& k, c_double& l, c_double& th, c_double& sigma);
+        virtual double d(c_double& t) const;
+};
+
+double term_structure_discount_factor_vasicek(c_double &time, c_double &r, c_double &a, c_double &b, c_double &sigma);
+
+class term_structure_class_vasicek: public term_structure_class{
+    private:
+        double r_{}, a_{}, b_{}, sigma_{};
+    public:
+        term_structure_class_vasicek() = default;
+        term_structure_class_vasicek(c_double& r, c_double& a, c_double& b, c_double& sigma);
+        virtual double d(c_double& t) const;
+};

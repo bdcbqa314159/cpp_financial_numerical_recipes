@@ -55,3 +55,50 @@ term_structure_class_cubic_spline::term_structure_class_cubic_spline(c_double &b
 double term_structure_class_cubic_spline::d(c_double& t) const{
     return term_structure_discount_factor_cubic_spline(t, b_, c_, d_, f_, knots_);
 }
+
+double term_structure_discount_factor_cir(c_double& t, c_double& r, c_double& kappa, c_double& lambda, c_double& theta, c_double& sigma){
+    double sigma_square = sigma*sigma;
+    double kappa_plus_lambda_square = (kappa+lambda)*(kappa+lambda);
+    double gamma = std::sqrt(kappa_plus_lambda_square + 2.*sigma_square);
+    double denum = (gamma+kappa+lambda)*(std::exp(gamma*t) - 1) + 2.*gamma;
+    double p = 2.*kappa*theta/sigma_square;
+
+    double enum1 = 2*gamma*std::exp(0.5*(kappa+lambda+gamma)*t);
+    double A = std::pow((enum1/denum), p);
+    double B = (2*(std::exp(gamma*t) - 1))/denum;
+    double dfact = A*std::exp(-B*r);
+    return dfact;
+}
+
+term_structure_class_cir::term_structure_class_cir(c_double &r, c_double &k, c_double &l, c_double &th, c_double &sigma):r_(r), kappa_(k), lambda_(l), theta_(th), sigma_(sigma){}
+
+double term_structure_class_cir::d(c_double& t) const{
+    return term_structure_discount_factor_cir(t, r_, kappa_, lambda_, theta_, sigma_);
+}
+
+double term_structure_discount_factor_vasicek(c_double& time, c_double& r, c_double& a, c_double& b, c_double& sigma){
+    double A{}, B{};
+    double sigma_square = sigma*sigma;
+    double aa = a*a;
+
+    if (a == 0.){
+        B = time;
+        A = std::exp(sigma_square*std::pow(time, 3))/6;
+    }
+
+    else{
+        B = (1. - std::exp(-a*time))/a;
+        A = std::exp( (B-time)*(aa*b - 0.5*sigma_square)/aa - sigma_square*B*B*0.25/a);
+    }
+
+    double dfact = A*std::exp(-B*r);
+    return dfact;
+}
+
+term_structure_class_vasicek::term_structure_class_vasicek(c_double &r, c_double &a, c_double &b, c_double &sigma):r_(r), a_(a), b_(b), sigma_(sigma){
+
+}
+
+double term_structure_class_vasicek::d(c_double& t) const{
+    return term_structure_discount_factor_vasicek(t, r_, a_, b_, sigma_);
+}
