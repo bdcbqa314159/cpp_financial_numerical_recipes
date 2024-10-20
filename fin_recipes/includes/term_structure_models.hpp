@@ -62,3 +62,5 @@ class term_structure_class_vasicek: public term_structure_class{
         term_structure_class_vasicek(c_double& r, c_double& a, c_double& b, c_double& sigma);
         virtual double d(c_double& t) const;
 };
+
+double bond_option_price_call_zero_vasicek(c_double &K, c_double &r, c_double &opt_time_to_mat, c_double &bond_time_to_mat, c_double &a, c_double &b, c_double &sigma);

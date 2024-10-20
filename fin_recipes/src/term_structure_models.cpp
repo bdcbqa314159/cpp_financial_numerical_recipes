@@ -1,4 +1,5 @@
 #include "term_structure_models.hpp"
+#include "norm_dist.hpp"
 #include <cmath>
 
 double term_structure_yield_nelson_siegel(c_double& t, c_double& beta0, c_double& beta1, c_double& beta2, c_double& lambda){
@@ -101,4 +102,33 @@ term_structure_class_vasicek::term_structure_class_vasicek(c_double &r, c_double
 
 double term_structure_class_vasicek::d(c_double& t) const{
     return term_structure_discount_factor_vasicek(t, r_, a_, b_, sigma_);
+}
+
+double bond_option_price_call_zero_vasicek(c_double &K, c_double &r, c_double &opt_time_to_mat, c_double &bond_time_to_mat, c_double &a, c_double &b, c_double &sigma)
+{
+
+    double T_t = opt_time_to_mat;
+    double s_t = bond_time_to_mat;
+
+    double T_s = s_t-T_t;
+
+    double v_t_T{};
+    double sigma_P{};
+
+    if (a == 0.){
+        v_t_T = sigma*std::sqrt(T_t);
+        sigma_P = sigma*T_s*std::sqrt(T_t);
+    }
+    else{
+        v_t_T = std::sqrt(sigma*sigma*(1. - std::exp(-2*a*T_t))*0.5/a);
+        double B_T_s = (1. - std::exp(-a*T_s))/a;
+        sigma_P = v_t_T*B_T_s;
+    }
+
+    double df_s_t = term_structure_discount_factor_vasicek(s_t,r,a,b,sigma);
+    double df_T_t = term_structure_discount_factor_vasicek(T_t, r, a, b, sigma);
+
+    double h = (1./sigma_P)*std::log(df_s_t/(df_T_t*K)) + sigma_P*0.5;
+    double c = df_s_t*N(h) - K*df_T_t*N(h-sigma_P);
+    return c;
 }
