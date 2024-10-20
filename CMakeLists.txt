@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(GSL REQUIRED)
+find_package(Boost REQUIRED COMPONENTS date_time)
 
 add_subdirectory(fin_recipes)
 
@@ -37,4 +38,5 @@ add_subdirectory(chapter_23)
 add_subdirectory(chapter_24)
 add_subdirectory(chapter_25)
 add_subdirectory(chapter_26)
+add_subdirectory(chapter_27)
 add_subdirectory(appendix)

@@ -1,7 +1,7 @@
-project(chapter_26)
+project(chapter_27)
 
 set(includes ./ ../fin_recipes/)
-set(exe_1 bond_pricing_vasicek)
+set(exe_1 boost_example)
 
 
 add_executable(${exe_1} ${exe_1}.cpp)

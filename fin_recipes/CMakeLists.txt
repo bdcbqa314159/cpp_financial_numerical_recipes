@@ -31,8 +31,9 @@ set(sources
     src/binomial_term_structure_models.cpp
     src/ir_trees.cpp
     src/term_structure_ho_lee.cpp
+    src/boost_date_time.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
 target_include_directories(${PROJECT_NAME} PUBLIC ${includes})
-target_link_libraries(${PROJECT_NAME} PUBLIC GSL::gsl GSL::gslcblas)
+target_link_libraries(${PROJECT_NAME} PUBLIC GSL::gsl GSL::gslcblas Boost::boost Boost::date_time)
