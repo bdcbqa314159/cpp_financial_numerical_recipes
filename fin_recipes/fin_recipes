@@ -27,3 +27,4 @@
 #include "./includes/term_structure_models.hpp"
 #include "./includes/binomial_term_structure_models.hpp"
 #include "./includes/ir_trees.hpp"
+#include "./includes/term_structure_ho_lee.hpp"

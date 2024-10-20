@@ -30,6 +30,7 @@ set(sources
     src/term_structure_models.cpp
     src/binomial_term_structure_models.cpp
     src/ir_trees.cpp
+    src/term_structure_ho_lee.cpp
 )
 
 add_library(${PROJECT_NAME} ${sources})
